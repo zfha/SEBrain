@@ -5,7 +5,8 @@ export const ListStyle = styled.div`
   min-width: 280px;
   background-color: #1f2022;
   color: #525657;
-  height: 100%:
+  height: 100%;
+  border-right: 1px solid #101011;
 `;
 
 export const ListHeader = styled.div`
