@@ -50,6 +50,7 @@ export default class MainEditor extends Component {
   render() {
     return (
       <css.MainStyle onKeyDown={this.handleKeyEvent}>
+        <css.MainNav />
         <Editor
           style={{ height: '100%' }}
           editorState={this.state.editorState}
