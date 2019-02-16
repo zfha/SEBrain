@@ -26,6 +26,7 @@ class MainEditor extends Component {
     super(props);
     this.editorRef = React.createRef();
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   state = {
@@ -50,7 +51,17 @@ class MainEditor extends Component {
 
   onChange = editorState => {
     const html = stateToHTML(editorState.getCurrentContent());
-    console.log(html);
+    const { focusArticle } = this.props;
+    if (html !== focusArticle.content) {
+      this.props.dispatch({
+        type: 'page/update',
+        payload: {
+          id: this.props.focusArticle._id,
+          content: html
+        }
+      });
+    }
+
     this.setState({
       editorState
     });

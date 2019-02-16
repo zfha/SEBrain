@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 import * as css from './style';
 
 class List extends Component {
@@ -20,6 +21,29 @@ class List extends Component {
       type: 'page/select',
       payload: { index }
     });
+  }
+
+  componentDidMount() {
+    const { focusArticle } = this.props;
+    document.onkeydown = e => {
+      const keyCode = e.keyCode || e.which || e.charCode;
+      const ctrlKey = e.ctrlKey || e.metaKey;
+      if (keyCode == 8 && ctrlKey) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `delete ${focusArticle.name || '未命名新笔记'} !`,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(result => {
+          if (result.value) {
+            // 删除
+          }
+        });
+      }
+    };
   }
 
   render() {

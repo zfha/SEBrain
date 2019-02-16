@@ -10874,6 +10874,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@^8.0.7:
+  version "8.0.7"
+  resolved "http://registry.npm.taobao.org/sweetalert2/download/sweetalert2-8.0.7.tgz#c8208ac4d45906f620aca38c0c3f6734b9c34b66"
+
 symbol-observable@^1.0.3, symbol-observable@^1.1.0, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/symbol-observable/download/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
