@@ -5,6 +5,17 @@ const { ipcMain } = require('electron');
 const db = new Datastore({ filename: `${home}/SEBrain.db`, autoload: true });
 db.loadDatabase();
 
+ipcMain.on('db_delete', async (event, arg) => {
+  const { id } = arg;
+  if (!id) {
+    event.returnValue = false;
+    return;
+  }
+
+  const result = await db.update({ _id: id }, { is_valid: 0 });
+  event.returnValue = true;
+});
+
 ipcMain.on('db_update', async (event, arg) => {
   if (!arg.id) {
     event.returnValue = false;
@@ -18,7 +29,6 @@ ipcMain.on('db_update', async (event, arg) => {
     gmt_modified: new Date().getTime()
   };
   const result = await db.update({ _id: id }, arg);
-  console.log('update result', result);
   event.returnValue = true;
 });
 

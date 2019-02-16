@@ -84,6 +84,7 @@ export const ListItemTitle = styled.div`
   color: ${props => (props.empty ? '#525657' : '#d0d0d2')};
   font-size: 15px;
   font-weight: 600;
+  line-height: 21px;
   margin-bottom: 5px;
 `;
 

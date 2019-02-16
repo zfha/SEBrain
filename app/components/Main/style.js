@@ -5,6 +5,7 @@ export const MainStyle = styled.div`
   flex: 1;
   height: 100%;
   padding: 50px;
+  padding-top: 20px;
   background-color: #1f2022;
 
   & pre {

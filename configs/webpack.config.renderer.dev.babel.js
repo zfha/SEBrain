@@ -120,22 +120,16 @@ export default merge.smart(baseConfig, {
       },
       // SASS support - compile all other .scss files and pipe it to style.css
       {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
+        test: /^((?!\.global).)*\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader' // 将 JS 字符串生成为 style 节点
           },
           {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
-            }
+            loader: 'css-loader' // 将 CSS 转化成 CommonJS 模块
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader' // 将 Sass 编译成 CSS
           }
         ]
       },

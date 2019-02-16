@@ -1,0 +1,69 @@
+.DraftEditor-root {
+  font-size: 14px;
+  line-height: 22px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    color: #cadbe5;
+    display: flex;
+    align-items: center;
+
+    &:before {
+      position: absolute;
+      color: #4e4e4f;
+      font-size: 14px;
+      font-weight: 300;
+      left: -20px;
+      bottom: 0;
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    line-height: 23px;
+    font-size: 14px;
+    margin: 16px 0;
+  }
+
+  h1 {
+    line-height: 40px;
+  }
+
+  h2 {
+    line-height: 29px;
+  }
+
+  h3 {
+    line-height: 23px;
+  }
+
+  h1:before {
+    content: 'H₁';
+  }
+
+  h2:before {
+    content: 'H₂';
+  }
+
+  h3:before {
+    content: 'H₃';
+  }
+
+  h4:before {
+    content: 'H₄';
+  }
+
+  h5:before {
+    content: 'H₅';
+  }
+
+  h6:before {
+    content: 'H₆';
+  }
+}
