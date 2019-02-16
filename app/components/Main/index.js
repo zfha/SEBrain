@@ -17,10 +17,12 @@ import createPrismPlugin from 'draft-js-prism-plugin';
 import { c } from 'bowser';
 import * as css from './style';
 
-const prismPlugin = createPrismPlugin({
-  prism: Prism
-});
-const plugins = [prismPlugin, createMarkdownShortcutsPlugin()];
+const plugins = [
+  createPrismPlugin({
+    prism: Prism
+  }),
+  createMarkdownShortcutsPlugin()
+];
 
 class MainEditor extends Component {
   constructor(props) {
