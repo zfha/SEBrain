@@ -23,6 +23,7 @@ function wrapper({ model, models, view, selector, mount, initialState }) {
     </Provider>
   );
 
+  mount && render(App, root)
   return App;
 }
 

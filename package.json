@@ -257,6 +257,10 @@
     "@fortawesome/fontawesome-free": "^5.5.0",
     "devtron": "^1.4.0",
     "draft-js": "^0.10.5",
+    "draft-js-export-html": "^1.2.0",
+    "draft-js-export-markdown": "^1.2.0",
+    "draft-js-import-html": "^1.2.1",
+    "draft-js-import-markdown": "^1.2.1",
     "draft-js-markdown-shortcuts-plugin": "^0.5.0",
     "draft-js-plugins-editor": "^2.1.1",
     "draft-js-prism": "^1.0.6",
@@ -266,6 +270,8 @@
     "electron-log": "^2.2.17",
     "electron-updater": "^3.2.3",
     "history": "^4.7.2",
+    "nedb": "^1.8.0",
+    "nedb-promise": "^2.0.1",
     "prism-themes": "^1.0.1",
     "prismjs": "^1.15.0",
     "react": "^16.6.3",
@@ -277,7 +283,8 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.9",
-    "styled-components": "^4.1.2"
+    "styled-components": "^4.1.2",
+    "uuid": "^3.3.2"
   },
   "devEngines": {
     "node": ">=7.x",

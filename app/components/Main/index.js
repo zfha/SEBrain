@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import Editor from 'draft-js-plugins-editor';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-import { EditorState, Modifier } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
+import {
+  EditorState,
+  Modifier,
+  ContentState,
+  convertFromHTML,
+  convertToRaw
+} from 'draft-js';
 import Prism from 'prismjs';
+import { connect } from 'react-redux';
 import createPrismPlugin from 'draft-js-prism-plugin';
+import { c } from 'bowser';
 import * as css from './style';
 
 const prismPlugin = createPrismPlugin({
@@ -11,18 +21,36 @@ const prismPlugin = createPrismPlugin({
 });
 const plugins = [prismPlugin, createMarkdownShortcutsPlugin()];
 
-export default class MainEditor extends Component {
+class MainEditor extends Component {
   constructor(props) {
     super(props);
+    this.editorRef = React.createRef();
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
   }
 
   state = {
-    editorState: EditorState.createEmpty()
+    editorState: EditorState.createEmpty(),
+    focusId: undefined
   };
 
+  static getDerivedStateFromProps(props, state) {
+    const { focusArticle } = props;
+    const { focusId } = state;
+    if (focusId !== focusArticle._id) {
+      return {
+        ...state,
+        focusId: focusArticle._id,
+        editorState: EditorState.createWithContent(
+          stateFromHTML(focusArticle.content || '')
+        )
+      };
+    }
+    return { ...state };
+  }
+
   onChange = editorState => {
-    console.log(editorState);
+    const html = stateToHTML(editorState.getCurrentContent());
+    console.log(html);
     this.setState({
       editorState
     });
@@ -49,9 +77,15 @@ export default class MainEditor extends Component {
 
   render() {
     return (
-      <css.MainStyle onKeyDown={this.handleKeyEvent}>
+      <css.MainStyle
+        onKeyDown={this.handleKeyEvent}
+        onClick={() => {
+          this.editorRef.current.focus();
+        }}
+      >
         <css.MainNav />
         <Editor
+          ref={this.editorRef}
           style={{ height: '100%' }}
           editorState={this.state.editorState}
           onChange={this.onChange}
@@ -61,3 +95,5 @@ export default class MainEditor extends Component {
     );
   }
 }
+
+export default connect(v => v.page)(MainEditor);

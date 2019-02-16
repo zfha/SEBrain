@@ -16,7 +16,3 @@ export default class HomePage extends Component {
     );
   }
 }
-
-// <Menu />
-// <List />
-// <Main />
