@@ -8,7 +8,7 @@ import {
   EditorState,
   Modifier,
   ContentState,
-  convertFromHTML,
+  convertFromRaw,
   convertToRaw
 } from 'draft-js';
 import Prism from 'prismjs';
@@ -39,13 +39,15 @@ class MainEditor extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { focusArticle } = props;
-    const { focusId } = state;
+    const { focusId, editorState } = state;
     if (focusId !== focusArticle._id) {
       return {
         ...state,
         focusId: focusArticle._id,
-        editorState: EditorState.createWithContent(
-          stateFromHTML(focusArticle.content || '')
+        editorState: EditorState.push(
+          state.editorState,
+          // stateFromHTML(focusArticle.content || '')
+          convertFromRaw(JSON.parse(focusArticle.originContent || '{}'))
         )
       };
     }
@@ -53,14 +55,18 @@ class MainEditor extends Component {
   }
 
   onChange = editorState => {
-    const html = stateToHTML(editorState.getCurrentContent());
+    const currentContent = editorState.getCurrentContent();
+    const originContent = convertToRaw(currentContent);
+    const html = stateToHTML(currentContent);
+
     const { focusArticle } = this.props;
     if (html !== focusArticle.content) {
       this.props.dispatch({
         type: 'page/update',
         payload: {
           id: this.props.focusArticle._id,
-          content: html
+          content: html,
+          originContent: JSON.stringify(originContent)
         }
       });
     }
@@ -90,6 +96,7 @@ class MainEditor extends Component {
   };
 
   render() {
+    const { editorState } = this.state;
     return (
       <css.MainStyle
         onKeyDown={this.handleKeyEvent}
@@ -98,13 +105,15 @@ class MainEditor extends Component {
         }}
       >
         <css.MainNav />
-        <Editor
-          ref={this.editorRef}
-          style={{ height: '100%' }}
-          editorState={this.state.editorState}
-          onChange={this.onChange}
-          plugins={plugins}
-        />
+        {editorState && (
+          <Editor
+            ref={this.editorRef}
+            style={{ height: '100%' }}
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+            plugins={plugins}
+          />
+        )}
       </css.MainStyle>
     );
   }

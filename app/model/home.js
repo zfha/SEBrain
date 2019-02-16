@@ -54,14 +54,14 @@ export default {
       yield put({ type: 'addArticle', payload: { article } });
     },
     *update({ payload }, { put }) {
-      const { id, content } = payload;
+      const { id, content, originContent } = payload;
       const title = getTitle(content);
       const desc = getDesc(content).replace(title, '');
       yield put({
         type: 'updateArticle',
-        payload: { title, desc, content }
+        payload: { title, desc, content, originContent }
       });
-      _debounceUpdate({ id, title, desc, content });
+      _debounceUpdate({ id, title, desc, content, originContent });
     },
     *select({ payload }, { put }) {
       const { index } = payload;
